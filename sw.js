@@ -3,7 +3,7 @@
 // Deployed at: /Tutiontrackerv7/
 // ══════════════════════════════════════════════════════════
 
-const CACHE_NAME = 'tuition-tracker-v6';
+const CACHE_NAME = 'tuition-tracker-v7';
 
 const SHELL_FILES = [
   '/Tutiontrackerv7/',
@@ -81,7 +81,9 @@ self.addEventListener('fetch', event => {
   // Cache-first here is what makes a broken/old cached page 'stick' forever.
   if (req.mode === 'navigate' || url.pathname.endsWith('/index.html') || url.pathname === '/Tutiontrackerv7/') {
     event.respondWith(
-      fetch(req).then(resp => {
+      // cache:'no-cache' makes the browser re-check GitHub Pages instead of
+      // reusing its own HTTP-cached copy of the page (kept up to 10 min)
+      fetch(req.url, { cache: 'no-cache', credentials: 'same-origin' }).then(resp => {
         if (resp && resp.ok) {
           const clone = resp.clone();
           caches.open(CACHE_NAME).then(c => c.put(req, clone));
