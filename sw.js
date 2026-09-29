@@ -3,7 +3,7 @@
 // Deployed at: /Tutiontrackerv7/
 // ══════════════════════════════════════════════════════════
 
-const CACHE_NAME = 'tuition-tracker-v5';
+const CACHE_NAME = 'tuition-tracker-v6';
 
 const SHELL_FILES = [
   '/Tutiontrackerv7/',
