@@ -811,6 +811,62 @@ body{
 .sp-stat-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-ter);letter-spacing:0.08em;text-transform:uppercase;margin-top:2px}
 .sp-sessions{flex:1;overflow-y:auto;padding:14px}
 .sp-sess-title{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-ter);margin-bottom:10px}
+.sp-sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-ter);margin-top:2px}
+.sp-tabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;scrollbar-width:none}
+.sp-tabs::-webkit-scrollbar{display:none}
+.sp-tab{
+  flex:1;background:transparent;border:none;border-bottom:2px solid transparent;
+  padding:11px 8px;cursor:pointer;white-space:nowrap;
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;color:var(--text-ter);
+}
+.sp-tab.active{color:var(--silver);border-bottom-color:var(--silver)}
+.sp-block{margin-bottom:18px}
+.sp-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px}
+.sp-row:last-child{border-bottom:none}
+.sp-row-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-ter);width:92px;flex-shrink:0}
+.sp-row-val{flex:1;color:var(--text);min-width:0;overflow-wrap:anywhere}
+.sp-notes{font-size:12px;color:var(--text-sec);white-space:pre-wrap;padding:10px;border:1px solid var(--border);border-radius:var(--r)}
+.sp-list-item{padding:10px;border:1px solid var(--border);border-radius:var(--r);margin-bottom:6px}
+.sp-list-head{display:flex;align-items:center;gap:8px}
+.sp-list-title{font-size:13px;font-weight:600;color:var(--text);flex:1;min-width:0}
+.sp-list-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-ter);margin-top:2px}
+.sp-list-body{font-size:12px;color:var(--text-sec);margin-top:6px;white-space:pre-wrap}
+.sp-icon-btn{background:transparent;border:none;color:var(--text-ter);cursor:pointer;padding:4px;min-width:30px;min-height:30px;display:flex;align-items:center;justify-content:center;border-radius:var(--r)}
+.sp-icon-btn .material-symbols-outlined{font-size:16px}
+.mark-score{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--silver)}
+.mark-parts{margin-top:8px;display:flex;flex-direction:column;gap:5px}
+.mark-part{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-sec)}
+.mark-part-lbl{width:90px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mark-part-bar{flex:1;height:6px;background:var(--s-high);border-radius:var(--r);overflow:hidden}
+.mark-part-fill{height:100%;background:var(--silver)}
+.mark-part-val{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-ter);width:56px;text-align:right;flex-shrink:0}
+.mark-trend-up{color:#4ade80}
+.mark-trend-down{color:#ff7070}
+.part-row{display:grid;grid-template-columns:1fr 64px 64px 30px;gap:8px;align-items:end;margin-bottom:8px}
+.part-row .form-group{margin-bottom:0}
+.part-total{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-ter);margin:4px 0 12px}
+.part-total.bad{color:#ff7070}
+.modal-overlay.over-panel{z-index:400}
+.form-textarea{resize:vertical;border:1px solid var(--border-md)!important;padding:10px!important;background:var(--void)}
+
+/* Students list */
+.student-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.student-row:last-child{border-bottom:none}
+.student-row-info{flex:1;min-width:0}
+.student-row-name{font-size:13px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.student-row-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-ter);margin-top:2px}
+.clickable-name{cursor:pointer}
+
+/* WhatsApp reminders */
+.rem-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.rem-item:last-child{border-bottom:none}
+.rem-info{flex:1;min-width:0}
+.rem-name{font-size:13px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rem-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-ter);margin-top:2px}
+.btn-wa{background:#25D366;color:#04220f;border:none}
+.rem-sent{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--silver);display:flex;align-items:center;gap:3px}
+.rem-sent .material-symbols-outlined{font-size:14px}
 
 /* ══════════════════════════════════════════════════════════
    SECTION 16 — CALENDAR
@@ -1221,13 +1277,123 @@ tbody tr:last-child td{border-bottom:none}
   <div class="sp-drag"></div>
   <div class="sp-header">
     <div class="sp-avatar" id="sp-avatar"></div>
-    <div class="sp-name" id="sp-name-text">Student</div>
+    <div style="flex:1;min-width:0">
+      <div class="sp-name" id="sp-name-text">Student</div>
+      <div class="sp-sub" id="sp-sub-text"></div>
+    </div>
+    <button class="sp-close" onclick="openStudentModal(currentStudent)" title="Edit profile"><span class="material-symbols-outlined">edit</span></button>
     <button class="sp-close" onclick="closeStudentPanel()"><span class="material-symbols-outlined">close</span></button>
   </div>
-  <div class="sp-stats" id="sp-stats"></div>
-  <div class="sp-sessions">
-    <div class="sp-sess-title">Session History</div>
-    <div id="sp-session-list"></div>
+  <div class="sp-tabs" id="sp-tabs">
+    <button class="sp-tab active" data-tab="overview" onclick="setStudentTab('overview')">Overview</button>
+    <button class="sp-tab" data-tab="lessons" onclick="setStudentTab('lessons')">Lessons</button>
+    <button class="sp-tab" data-tab="marks" onclick="setStudentTab('marks')">Marks</button>
+    <button class="sp-tab" data-tab="payments" onclick="setStudentTab('payments')">Payments</button>
+  </div>
+  <div class="sp-sessions" id="sp-body"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     STUDENT PROFILE MODAL
+     ══════════════════════════════════════════════════════ -->
+<div class="modal-overlay over-panel" id="student-modal">
+  <div class="modal">
+    <div class="modal-drag"></div>
+    <div class="modal-header">
+      <div class="modal-title" id="stm-title">Student profile</div>
+      <button class="modal-close" onclick="closeStudentModal()"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Student name</label><input class="form-input" id="stm-name"/></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Grade</label><input class="form-input" id="stm-grade" placeholder="e.g. Grade 12"/></div>
+        <div class="form-group"><label class="form-label">School</label><input class="form-input" id="stm-school"/></div>
+      </div>
+      <div class="form-group"><label class="form-label">Student WhatsApp number</label><input class="form-input" id="stm-phone" type="tel" inputmode="tel" placeholder="077 123 4567"/></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Parent name</label><input class="form-input" id="stm-parent"/></div>
+        <div class="form-group"><label class="form-label">Parent phone</label><input class="form-input" id="stm-parent-phone" type="tel" inputmode="tel"/></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Class reminders</label>
+        <div class="pay-toggle">
+          <button id="stm-rem-on" onclick="setStmReminders(true)">On</button>
+          <button id="stm-rem-off" onclick="setStmReminders(false)">Off</button>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">Notes</label><textarea class="form-input form-textarea" id="stm-notes" rows="3"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button id="stm-delete-btn" class="btn btn-warn btn-sm" style="display:none;margin-right:auto" onclick="deleteStudentProfile()">
+        <span class="material-symbols-outlined">delete</span> Delete
+      </button>
+      <button class="btn btn-ghost" onclick="closeStudentModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveStudentModal()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     LESSON MODAL
+     ══════════════════════════════════════════════════════ -->
+<div class="modal-overlay over-panel" id="lesson-modal">
+  <div class="modal">
+    <div class="modal-drag"></div>
+    <div class="modal-header">
+      <div class="modal-title" id="lm-title">Add lesson</div>
+      <button class="modal-close" onclick="closeLessonModal()"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Date</label><input class="form-input" id="lm-date" type="date"/></div>
+        <div class="form-group"><label class="form-label">Subject</label><select class="form-select" id="lm-subject"></select></div>
+      </div>
+      <div class="form-group"><label class="form-label">Topic / lesson covered</label><input class="form-input" id="lm-topic" placeholder="e.g. Newton's laws of motion"/></div>
+      <div class="form-group"><label class="form-label">Notes / homework (optional)</label><textarea class="form-input form-textarea" id="lm-notes" rows="3"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button id="lm-delete-btn" class="btn btn-warn btn-sm" style="display:none;margin-right:auto" onclick="deleteLesson()">
+        <span class="material-symbols-outlined">delete</span> Delete
+      </button>
+      <button class="btn btn-ghost" onclick="closeLessonModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveLesson()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     MARK MODAL
+     ══════════════════════════════════════════════════════ -->
+<div class="modal-overlay over-panel" id="mark-modal">
+  <div class="modal">
+    <div class="modal-drag"></div>
+    <div class="modal-header">
+      <div class="modal-title" id="mm-title">Add marks</div>
+      <button class="modal-close" onclick="closeMarkModal()"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Test / paper name</label><input class="form-input" id="mm-test" placeholder="e.g. Term test 2"/></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Date</label><input class="form-input" id="mm-date" type="date"/></div>
+        <div class="form-group"><label class="form-label">Subject</label><select class="form-select" id="mm-subject"></select></div>
+      </div>
+      <div class="settings-section-title">Breakdown (sections add up to 100)</div>
+      <div id="mm-parts"></div>
+      <button class="btn btn-ghost btn-sm" onclick="addMarkPartRow()"><span class="material-symbols-outlined">add</span> Add section</button>
+      <div class="part-total" id="mm-parts-total"></div>
+      <div class="form-group" id="mm-total-group">
+        <label class="form-label">Total mark (out of 100)</label>
+        <input class="form-input" id="mm-total" type="number" inputmode="decimal" min="0" max="100"/>
+      </div>
+      <div class="form-group"><label class="form-label">Remarks (optional)</label><input class="form-input" id="mm-notes"/></div>
+    </div>
+    <div class="modal-footer">
+      <button id="mm-delete-btn" class="btn btn-warn btn-sm" style="display:none;margin-right:auto" onclick="deleteMark()">
+        <span class="material-symbols-outlined">delete</span> Delete
+      </button>
+      <button class="btn btn-ghost" onclick="closeMarkModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveMark()">Save</button>
+    </div>
   </div>
 </div>
 
@@ -1267,6 +1433,26 @@ tbody tr:last-child td{border-bottom:none}
       <div class="form-group">
         <label class="form-label">Monthly revenue goal</label>
         <input class="form-input" id="s-goal" type="number" inputmode="decimal" placeholder="e.g. 150000"/>
+      </div>
+      <div class="settings-section-title">WhatsApp Reminders</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Remind before class</label>
+          <select class="form-select" id="s-rem-lead">
+            <option value="60">1 hour</option>
+            <option value="120">2 hours</option>
+            <option value="180">3 hours</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Country code</label>
+          <input class="form-input" id="s-country" type="tel" inputmode="numeric" placeholder="94"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-input form-textarea" id="s-rem-template" rows="3"></textarea>
+        <div class="sp-sub" style="margin-top:6px">Placeholders: {student} {subject} {time} {day} {teacher}</div>
       </div>
     </div>
     <div class="modal-footer">
@@ -1310,12 +1496,17 @@ tbody tr:last-child td{border-bottom:none}
       <div class="form-group"><label class="form-label">Student name</label><input class="form-input" id="pm-name"/></div>
       <div class="form-row">
         <div class="form-group"><label class="form-label">Subject</label><select class="form-select" id="pm-subject"></select></div>
-        <div class="form-group"><label class="form-label">Type</label><select class="form-select" id="pm-type"><option value="Individual">Individual</option><option value="Group">Group</option></select></div>
+        <div class="form-group"><label class="form-label">Type</label><select class="form-select" id="pm-type" onchange="updatePmMembersVisibility()"><option value="Individual">Individual</option><option value="Group">Group</option></select></div>
+      </div>
+      <div class="form-group" id="pm-members-group" style="display:none">
+        <label class="form-label">Group students (comma separated)</label>
+        <input class="form-input" id="pm-members" placeholder="Nimal Silva, Kasun Perera"/>
+        <div class="sp-sub" style="margin-top:6px">Each student gets their own WhatsApp reminder.</div>
       </div>
       <div class="form-group"><label class="form-label">Days of week</label><div class="dow-picker" id="dow-picker"></div></div>
       <div class="form-row">
         <div class="form-group"><label class="form-label">Fee per session</label><input class="form-input" id="pm-fee" type="number" inputmode="decimal"/></div>
-        <div class="form-group"><label class="form-label">Time (optional)</label><input class="form-input" id="pm-time" type="time"/></div>
+        <div class="form-group"><label class="form-label">Class time</label><input class="form-input" id="pm-time" type="time"/></div>
       </div>
       <div class="form-row">
         <div class="form-group"><label class="form-label">Start date</label><input class="form-input" id="pm-start" type="date"/></div>
@@ -1379,6 +1570,9 @@ tbody tr:last-child td{border-bottom:none}
       <div class="theme-swatch" id="swatch-amber" style="background:#120E08" onclick="setTheme('amber')" title="Amber Ledger"></div>
       <div class="theme-swatch" id="swatch-daylight" style="background:#F8FAFC;border:2px solid #CBD5E1" onclick="setTheme('daylight')" title="Daylight"></div>
     </div>
+    <button class="more-item" onclick="closeMoreSheet();showSection('students')">
+      <span class="material-symbols-outlined">school</span> Students
+    </button>
     <button class="more-item" onclick="closeMoreSheet();showSection('patterns')">
       <span class="material-symbols-outlined">event_repeat</span> Recurring Schedule
       <span class="nav-badge" id="more-pattern-badge" style="position:static;margin-left:auto;display:none;background:var(--steel);color:#fff;font-family:'JetBrains Mono',monospace;font-size:9px;padding:1px 6px;border-radius:2px"></span>
@@ -1388,6 +1582,12 @@ tbody tr:last-child td{border-bottom:none}
     </button>
     <button class="more-item" onclick="closeMoreSheet();showSection('report')">
       <span class="material-symbols-outlined">summarize</span> Monthly Report
+    </button>
+    <button class="more-item" onclick="closeMoreSheet();exportBackup()">
+      <span class="material-symbols-outlined">backup</span> Full Backup (all data)
+    </button>
+    <button class="more-item" onclick="closeMoreSheet();triggerRestoreBackup()">
+      <span class="material-symbols-outlined">settings_backup_restore</span> Restore Backup
     </button>
     <button class="more-item" onclick="closeMoreSheet();exportCSV()">
       <span class="material-symbols-outlined">download</span> Export CSV
@@ -1415,6 +1615,7 @@ tbody tr:last-child td{border-bottom:none}
 </div>
 
 <!-- CSV import input -->
+<input type="file" id="backup-restore-input" accept=".json,application/json" style="display:none" onchange="restoreBackup(event)"/>
 <input type="file" id="csv-import-input" accept=".csv,text/csv,text/comma-separated-values,text/plain" style="display:none" onchange="importCSV(event)"/>
 
 <!-- ══════════════════════════════════════════════════════
@@ -1445,7 +1646,7 @@ tbody tr:last-child td{border-bottom:none}
       <div class="backup-banner" id="backup-banner">
         <span class="material-symbols-outlined" style="color:#ffb786;font-size:16px;flex-shrink:0">warning</span>
         <span style="font-size:12px;flex:1">7+ days since last export. Back up now.</span>
-        <button class="btn btn-ghost btn-sm" onclick="exportCSV()">Export</button>
+        <button class="btn btn-ghost btn-sm" onclick="exportBackup()">Back up</button>
         <button class="btn btn-ghost btn-sm" onclick="this.closest('.backup-banner').style.display='none'">✕</button>
       </div>
 
@@ -1490,6 +1691,15 @@ tbody tr:last-child td{border-bottom:none}
         <div class="card-title">Monthly Revenue</div>
         <div class="chart-legend" id="dash-chart-legend"></div>
         <div class="chart-container"><canvas id="dash-chart"></canvas></div>
+      </div>
+
+      <!-- WhatsApp reminders -->
+      <div class="card stagger-card" id="reminders-card" style="animation-delay:330ms;display:none">
+        <div style="display:flex;align-items:center;margin-bottom:6px">
+          <div class="card-title" style="margin-bottom:0">WhatsApp Reminders</div>
+          <span class="sp-sub" style="margin-left:auto;margin-top:0" id="reminders-count"></span>
+        </div>
+        <div id="reminders-list"></div>
       </div>
 
       <!-- Upcoming classes -->
@@ -1556,6 +1766,10 @@ tbody tr:last-child td{border-bottom:none}
           </div>
         </div>
         <div class="form-group">
+          <label class="form-label">Lesson topic (optional)</label>
+          <input class="form-input" id="f-topic" placeholder="Saved to the student's lesson history"/>
+        </div>
+        <div class="form-group">
           <label class="form-label">Payment status</label>
           <div class="pay-toggle" id="pay-toggle">
             <button id="paid-btn" onclick="setPaid(true)">Paid</button>
@@ -1618,6 +1832,23 @@ tbody tr:last-child td{border-bottom:none}
         </div>
       </div>
       <div id="patterns-list"></div>
+    </div>
+
+    <!-- ── STUDENTS ───────────────────────────────────── -->
+    <div class="section" id="section-students">
+      <div style="display:flex;align-items:center;margin-bottom:16px">
+        <div>
+          <div class="section-title">Students</div>
+          <div class="section-sub">PROFILES, LESSONS & MARKS</div>
+        </div>
+        <button class="btn btn-primary btn-sm" style="margin-left:auto" onclick="openStudentModal(null)">
+          <span class="material-symbols-outlined">add</span> Add
+        </button>
+      </div>
+      <div class="card">
+        <input class="form-input" id="students-search" placeholder="Search students..." oninput="renderStudents()" style="margin-bottom:6px"/>
+        <div id="students-list"></div>
+      </div>
     </div>
 
     <!-- ── ANALYTICS ──────────────────────────────────── -->
@@ -1930,7 +2161,10 @@ function loadTheme(){
 let sessions  = [];
 let patterns  = [];
 let calNotes  = {};
-let settings  = { teacherName:'', subjects:['Physics','Maths'], monthlyGoal:0, currency:'LKR' };
+let students  = {};   // keyed by student name → profile, lessons, marks
+const DEFAULT_REMINDER_TEMPLATE='Hi {student}, this is a reminder that your {subject} class is today at {time}. See you there! – {teacher}';
+let settings  = { teacherName:'', subjects:['Physics','Maths'], monthlyGoal:0, currency:'LKR',
+  reminderLeadMins:120, countryCode:'94', reminderTemplate:DEFAULT_REMINDER_TEMPLATE };
 let calViewDate = new Date();
 let selectedDay = null;
 let analyticsRange = 7;
@@ -1959,7 +2193,7 @@ const SUBJ_COLORS = [
   {bg:'rgba(100,116,139,0.15)',c:'#94a3b8',cls:'slate'},
 ];
 function subjectColor(subj){
-  const idx=settings.subjects.indexOf(subj);
+  const idx=Math.max(0,settings.subjects.indexOf(subj)); // unknown subject → first colour
   return SUBJ_COLORS[idx%SUBJ_COLORS.length];
 }
 
@@ -1972,7 +2206,7 @@ function save(){
     Object.keys(localStorage).filter(k=>k.startsWith('tuition_snap_')).forEach(k=>{
       try{const t=parseInt(k.replace('tuition_snap_','').replace('_','')||0);if(t<cutoff)localStorage.removeItem(k);}catch(e){}
     });
-    const payload={version:2,savedAt:new Date().toISOString(),sessions,patterns,calNotes};
+    const payload={version:2,savedAt:new Date().toISOString(),sessions,patterns,calNotes,students};
     const raw=JSON.stringify(payload);
     localStorage.setItem('tuition_v2',raw);
     localStorage.setItem('tuition_v2_backup',raw);
@@ -2000,6 +2234,7 @@ function loadData(){
       sessions.forEach(s=>{if(s.paid===undefined)s.paid=true;});
       patterns=Array.isArray(d.patterns)?d.patterns:[];
       calNotes=(d.calNotes&&typeof d.calNotes==='object')?d.calNotes:{};
+      students=(d.students&&typeof d.students==='object')?d.students:{};
       return;
     }catch(e){}
   }
@@ -2019,13 +2254,16 @@ function updateSavedStatus(){
 // JS SECTION 5 — UTILITY (verbatim from v79)
 // ══════════════════════════════════════════════════════════
 function fmt(n){return settings.currency+' '+Math.round(n).toLocaleString();}
-function dateStr(d){return d.toISOString().split('T')[0];}
+function dateStr(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
 function today(){return dateStr(new Date());}
 function sum(arr){return arr.reduce((a,s)=>a+s.amount,0);}
 function pluralSess(n){return n+' session'+(n!==1?'s':'');}
 function initials(name){return name.trim().split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);}
 function uid(){return Date.now()+Math.random().toString(36).slice(2,6);}
-function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+// Safe JS string argument for inline onclick handlers (handles names like D'Silva)
+function jsArg(str){return "decodeURIComponent('"+encodeURIComponent(String(str)).replace(/'/g,'%27')+"')";}
+function nameClick(name){return `onclick="openStudentPanel(${jsArg(name)})"`;}
+function escHtml(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 // ══════════════════════════════════════════════════════════
 // JS SECTION 6 — TOAST (verbatim from v79)
@@ -2102,6 +2340,9 @@ function openSettings(){
   document.getElementById('s-name').value=settings.teacherName;
   document.getElementById('s-currency').value=settings.currency;
   document.getElementById('s-goal').value=settings.monthlyGoal||'';
+  document.getElementById('s-rem-lead').value=String(settings.reminderLeadMins||120);
+  document.getElementById('s-country').value=settings.countryCode||'94';
+  document.getElementById('s-rem-template').value=settings.reminderTemplate||DEFAULT_REMINDER_TEMPLATE;
   buildSettingsSubjectTags();
   document.getElementById('settings-modal').classList.add('open');
 }
@@ -2136,6 +2377,9 @@ function saveSettings(){
   settings.monthlyGoal=parseFloat(document.getElementById('s-goal').value)||0;
   const sel=[...document.querySelectorAll('#s-subject-tags .subject-tag.selected')].map(b=>b.dataset.subj);
   if(sel.length)settings.subjects=sel;
+  settings.reminderLeadMins=parseInt(document.getElementById('s-rem-lead').value)||120;
+  settings.countryCode=document.getElementById('s-country').value.replace(/\D/g,'')||'94';
+  settings.reminderTemplate=document.getElementById('s-rem-template').value.trim()||DEFAULT_REMINDER_TEMPLATE;
   _persistSettings();
   closeSettings();
   rebuildSubjectDropdowns();
@@ -2145,7 +2389,7 @@ function saveSettings(){
 }
 
 function rebuildSubjectDropdowns(){
-  ['f-subject','pm-subject','sm-subject','filter-subject'].forEach(id=>{
+  ['f-subject','pm-subject','sm-subject','filter-subject','lm-subject','mm-subject'].forEach(id=>{
     const el=document.getElementById(id);if(!el)return;
     const isFilter=id==='filter-subject';
     el.innerHTML=(isFilter?'<option value="">All subjects</option>':'')+
@@ -2161,7 +2405,7 @@ function updateTopbarName(){
 function updateStudentDatalist(){
   const dl=document.getElementById('student-datalist');
   if(!dl)return;
-  const names=[...new Set(sessions.map(s=>s.name))].sort();
+  const names=allStudentNames();
   dl.innerHTML=names.map(n=>`<option value="${escHtml(n)}">`).join('');
 }
 
@@ -2171,7 +2415,7 @@ function updateStudentDatalist(){
 const SECTION_NAMES={
   dashboard:'DASHBOARD',log:'LOG SESSION',calendar:'CALENDAR',
   patterns:'SCHEDULE',analytics:'ANALYTICS',
-  history:'ALL SESSIONS',report:'MONTHLY REPORT'
+  history:'ALL SESSIONS',report:'MONTHLY REPORT',students:'STUDENTS'
 };
 // Tabs that exist in bottom nav vs more sheet
 const BOTTOM_TAB_IDS=['dashboard','log','calendar','analytics'];
@@ -2198,6 +2442,7 @@ function showSection(id){
   if(id==='analytics')renderAnalytics();
   if(id==='history')renderHistory();
   if(id==='patterns')renderPatterns();
+  if(id==='students')renderStudents();
   if(id==='log'){renderTodayList('log-today-list');checkQuickFill();}
   if(id==='report'){initReportSelectors();renderReport();}
 }
@@ -2240,6 +2485,8 @@ function addSession(){
   if(isNaN(amount)||amount<=0){toast('Enter a valid amount.');return;}
   const s={id:uid(),name,date,subject,type,amount,paid:newSessionPaid};
   sessions.unshift(s);
+  const topic=document.getElementById('f-topic').value.trim();
+  if(topic)getStudent(name).lessons.unshift({id:uid(),date,subject,topic,notes:''});
   checkMilestone(s.name);
   save();
   clearForm();
@@ -2263,6 +2510,7 @@ function isThisMonth(s){
 function clearForm(){
   document.getElementById('f-name').value='';
   document.getElementById('f-amount').value='';
+  document.getElementById('f-topic').value='';
   document.getElementById('f-date').value=today();
   setPaid(false);
 }
@@ -2305,7 +2553,7 @@ function togglePaid(id,reopenPanel){
   const s=sessions.find(x=>x.id===id);if(!s)return;
   s.paid=!s.paid;save();
   renderTodayList('today-list');renderTodayList('log-today-list');renderHistory();
-  if(reopenPanel)openStudentPanel(s.name);
+  if(reopenPanel)openStudentPanel(s.name,'payments');
   showToast('toggle_'+id,s.paid?'paid':'unpaid',
     s.paid?'Marked as paid':'Marked as unpaid',
     `${s.name} · ${fmt(s.amount)}`,
@@ -2351,7 +2599,7 @@ function renderSessionList(arr,containerId,withDelete){
     return `<div class="session-item" style="animation-delay:${i*35}ms">
       <div class="session-avatar" style="background:${sc.bg};color:${sc.c}">${initials(s.name)}</div>
       <div class="session-info">
-        <div class="session-name" onclick="openStudentPanel('${escHtml(s.name)}')">${escHtml(s.name)}</div>
+        <div class="session-name" ${nameClick(s.name)}>${escHtml(s.name)}</div>
         <div class="session-meta">${s.date}${s.type?' · '+s.type:''}</div>
       </div>
       <div class="session-badges">
@@ -2366,29 +2614,245 @@ function renderSessionList(arr,containerId,withDelete){
 }
 
 // ══════════════════════════════════════════════════════════
-// JS SECTION 14 — STUDENT PANEL (verbatim from v79)
+// JS SECTION 14 — STUDENT PROFILES (profile, lessons, marks)
 // ══════════════════════════════════════════════════════════
-function openStudentPanel(name){
-  const panel=document.getElementById('student-panel');
+let currentStudent=null;
+let spTab='overview';
+let marksChart=null;
+
+function blankStudent(){
+  return {phone:'',parentName:'',parentPhone:'',grade:'',school:'',notes:'',reminders:true,lessons:[],marks:[]};
+}
+// Returns the profile for a name, creating an empty one if needed
+function getStudent(name){
+  if(!students[name])students[name]=blankStudent();
+  const st=students[name];
+  if(!Array.isArray(st.lessons))st.lessons=[];
+  if(!Array.isArray(st.marks))st.marks=[];
+  return st;
+}
+// Students a schedule covers: group members if listed, otherwise the schedule name
+function patternStudents(p){
+  return (p.type==='Group'&&Array.isArray(p.members)&&p.members.length)?p.members:[p.name];
+}
+// Tap target for a schedule's name: the student, unless it is a named group of members
+function patternNameClick(p){return patternStudents(p)[0]===p.name?nameClick(p.name):'';}
+function allStudentNames(){
+  const set=new Set(Object.keys(students));
+  sessions.forEach(s=>set.add(s.name));
+  patterns.forEach(p=>patternStudents(p).forEach(n=>set.add(n)));
+  return [...set].filter(Boolean).sort((a,b)=>a.localeCompare(b));
+}
+function fmtTime12(t){
+  if(!t)return '';
+  const[h,m]=t.split(':').map(Number);
+  return `${h%12||12}:${String(m).padStart(2,'0')} ${h<12?'AM':'PM'}`;
+}
+function fmtDate(ds){
+  if(!ds)return '';
+  const d=new Date(ds+'T00:00');
+  return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+}
+function markTotal(m){return Number(m.total)||0;}
+function avgMark(marks){return marks.length?marks.reduce((a,m)=>a+markTotal(m),0)/marks.length:null;}
+function byDateDesc(a,b){return (b.date||'').localeCompare(a.date||'');}
+
+// ── PANEL ────────────────────────────────────────────────
+function openStudentPanel(name,tab){
+  if(!name)return;
+  if(name!==currentStudent)spTab=tab||'overview';
+  else if(tab)spTab=tab;
+  currentStudent=name;
+  renderStudentPanel();
+  document.getElementById('student-panel').classList.add('open');
+}
+function closeStudentPanel(){
+  document.getElementById('student-panel').classList.remove('open');
+  if(marksChart){marksChart.destroy();marksChart=null;}
+}
+function setStudentTab(tab){spTab=tab;renderStudentPanel();}
+
+function renderStudentPanel(){
+  const name=currentStudent;if(!name)return;
+  const st=students[name]||blankStudent();
   const studentSessions=sessions.filter(s=>s.name===name);
+  const sc=subjectColor(studentSessions[0]?.subject||'');
+  const av=document.getElementById('sp-avatar');
+  av.textContent=initials(name);av.style.background=sc.bg;av.style.color=sc.c;
+  document.getElementById('sp-name-text').textContent=name;
+  document.getElementById('sp-sub-text').textContent=[st.grade,st.school].filter(Boolean).join(' · ');
+  document.querySelectorAll('#sp-tabs .sp-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===spTab));
+  if(marksChart){marksChart.destroy();marksChart=null;}
+  const body=document.getElementById('sp-body');
+  body.scrollTop=0;
+  if(spTab==='overview')body.innerHTML=renderStudentOverview(name,st,studentSessions);
+  else if(spTab==='lessons')body.innerHTML=renderStudentLessons(st);
+  else if(spTab==='marks'){body.innerHTML=renderStudentMarks(st);drawMarksChart(st);}
+  else body.innerHTML=renderStudentPayments(studentSessions);
+}
+
+function renderStudentOverview(name,st,studentSessions){
+  const unpaid=sum(studentSessions.filter(s=>s.paid===false));
+  const avg=avgMark(st.marks);
+  const phone=normalizePhone(st.phone);
+  const parentPhone=normalizePhone(st.parentPhone);
+  const scheds=patterns.filter(p=>patternStudents(p).includes(name));
+  const lastLesson=[...st.lessons].sort(byDateDesc)[0];
+  const lastMark=[...st.marks].sort(byDateDesc)[0];
+  const row=(lbl,val)=>`<div class="sp-row"><div class="sp-row-lbl">${lbl}</div><div class="sp-row-val">${val}</div></div>`;
+  const dash='<span style="color:var(--text-ter)">—</span>';
+  return `
+    <div class="sp-stats" style="margin:-14px -14px 16px">
+      <div class="sp-stat"><div class="sp-stat-val">${studentSessions.length}</div><div class="sp-stat-lbl">Sessions</div></div>
+      <div class="sp-stat"><div class="sp-stat-val">${st.lessons.length}</div><div class="sp-stat-lbl">Lessons</div></div>
+      <div class="sp-stat"><div class="sp-stat-val">${avg===null?'—':Math.round(avg)+'%'}</div><div class="sp-stat-lbl">Average Mark</div></div>
+      <div class="sp-stat"><div class="sp-stat-val" style="color:var(--steel)">${fmt(unpaid)}</div><div class="sp-stat-lbl">Outstanding</div></div>
+    </div>
+    <div class="sp-block">
+      <div class="sp-sess-title">Details</div>
+      ${row('WhatsApp',phone?`<a href="https://wa.me/${phone}" target="_blank" rel="noopener" style="color:var(--silver)">+${phone}</a>`:`<button class="btn btn-ghost btn-sm" onclick="openStudentModal(${jsArg(name)})">Add number</button>`)}
+      ${row('Reminders',st.reminders===false?'Off':'On')}
+      ${row('Parent',st.parentName?escHtml(st.parentName):dash)}
+      ${row('Parent phone',parentPhone?`<a href="tel:+${parentPhone}" style="color:var(--silver)">+${parentPhone}</a>`:dash)}
+    </div>
+    <div class="sp-block">
+      <div class="sp-sess-title">Classes</div>
+      ${scheds.length?scheds.map(p=>`<div class="sp-list-item">
+        <div class="sp-list-title">${escHtml(p.subject)} · ${p.type}${p.type==='Group'&&p.name!==name?' · '+escHtml(p.name):''}</div>
+        <div class="sp-list-meta">Every ${p.days.map(d=>DAYS_FULL[d].slice(0,3)).join(', ')}${p.time?' · '+fmtTime12(p.time):' · no time set'}${p.active?'':' · PAUSED'}</div>
+      </div>`).join(''):`<div class="empty-text" style="opacity:0.6;font-size:12px">No recurring schedule.</div>`}
+    </div>
+    <div class="sp-block">
+      <div class="sp-sess-title">Latest</div>
+      ${row('Lesson',lastLesson?`${escHtml(lastLesson.topic)} <span class="sp-list-meta">· ${fmtDate(lastLesson.date)}</span>`:dash)}
+      ${row('Mark',lastMark?`${Math.round(markTotal(lastMark))}/100 · ${escHtml(lastMark.test)} <span class="sp-list-meta">· ${fmtDate(lastMark.date)}</span>`:dash)}
+    </div>
+    ${st.notes?`<div class="sp-block"><div class="sp-sess-title">Notes</div><div class="sp-notes">${escHtml(st.notes)}</div></div>`:''}`;
+}
+
+function renderStudentLessons(st){
+  const lessons=[...st.lessons].sort(byDateDesc);
+  return `
+    <div style="display:flex;align-items:center;margin-bottom:12px">
+      <div class="sp-sess-title" style="margin-bottom:0">${lessons.length} lesson${lessons.length!==1?'s':''} recorded</div>
+      <button class="btn btn-primary btn-sm" style="margin-left:auto" onclick="openLessonModal(null)"><span class="material-symbols-outlined">add</span> Lesson</button>
+    </div>
+    ${lessons.length?lessons.map(l=>`<div class="sp-list-item">
+      <div class="sp-list-head">
+        <div class="sp-list-title">${escHtml(l.topic)}</div>
+        <button class="sp-icon-btn" onclick="openLessonModal('${l.id}')"><span class="material-symbols-outlined">edit</span></button>
+      </div>
+      <div class="sp-list-meta">${fmtDate(l.date)}${l.subject?' · '+escHtml(l.subject):''}</div>
+      ${l.notes?`<div class="sp-list-body">${escHtml(l.notes)}</div>`:''}
+    </div>`).join(''):`<div class="empty"><span class="material-symbols-outlined">menu_book</span><div class="empty-text">No lessons yet. Add what you covered each class.</div></div>`}`;
+}
+
+// Average % per breakdown section (e.g. MCQ, Essay) across all tests
+function sectionAverages(marks){
+  const acc={};
+  marks.forEach(m=>(m.parts||[]).forEach(p=>{
+    const key=p.label.trim().toLowerCase();
+    if(!acc[key])acc[key]={label:p.label.trim(),score:0,max:0,count:0};
+    acc[key].score+=Number(p.score)||0;acc[key].max+=Number(p.max)||0;acc[key].count++;
+  }));
+  return Object.values(acc).filter(a=>a.max>0).map(a=>({...a,pct:a.score/a.max*100})).sort((a,b)=>b.pct-a.pct);
+}
+function partBars(parts){
+  return `<div class="mark-parts">${parts.map(p=>{
+    const pct=p.max?Math.min(100,p.score/p.max*100):0;
+    return `<div class="mark-part">
+      <div class="mark-part-lbl">${escHtml(p.label)}</div>
+      <div class="mark-part-bar"><div class="mark-part-fill" style="width:${pct}%"></div></div>
+      <div class="mark-part-val">${p.score}/${p.max}</div>
+    </div>`;}).join('')}</div>`;
+}
+function renderStudentMarks(st){
+  const marks=[...st.marks].sort(byDateDesc);
+  const head=`<div style="display:flex;align-items:center;margin-bottom:12px">
+      <div class="sp-sess-title" style="margin-bottom:0">${marks.length} result${marks.length!==1?'s':''}</div>
+      <button class="btn btn-primary btn-sm" style="margin-left:auto" onclick="openMarkModal(null)"><span class="material-symbols-outlined">add</span> Marks</button>
+    </div>`;
+  if(!marks.length)return head+`<div class="empty"><span class="material-symbols-outlined">grading</span><div class="empty-text">No marks yet. Add test results out of 100.</div></div>`;
+  const avg=avgMark(marks);
+  const latest=markTotal(marks[0]);
+  const best=Math.max(...marks.map(markTotal));
+  let trend='—';
+  if(marks.length>1){
+    const diff=Math.round(latest-markTotal(marks[1]));
+    trend=diff>0?`<span class="mark-trend-up">▲ ${diff}</span>`:diff<0?`<span class="mark-trend-down">▼ ${-diff}</span>`:'±0';
+  }
+  const sections=sectionAverages(marks);
+  return head+`
+    <div class="sp-stats" style="margin:0 -14px 16px">
+      <div class="sp-stat"><div class="sp-stat-val">${Math.round(latest)}</div><div class="sp-stat-lbl">Latest</div></div>
+      <div class="sp-stat"><div class="sp-stat-val">${Math.round(avg)}</div><div class="sp-stat-lbl">Average</div></div>
+      <div class="sp-stat"><div class="sp-stat-val">${Math.round(best)}</div><div class="sp-stat-lbl">Best</div></div>
+      <div class="sp-stat"><div class="sp-stat-val">${trend}</div><div class="sp-stat-lbl">Vs previous test</div></div>
+    </div>
+    ${marks.length>1?`<div class="sp-block"><div class="sp-sess-title">Progress</div><div class="chart-container" style="height:180px"><canvas id="sp-marks-chart"></canvas></div></div>`:''}
+    ${sections.length?`<div class="sp-block">
+      <div class="sp-sess-title">Section averages${sections.length>1?' · weakest: '+escHtml(sections[sections.length-1].label):''}</div>
+      <div class="mark-parts">${sections.map(a=>`<div class="mark-part">
+        <div class="mark-part-lbl">${escHtml(a.label)}</div>
+        <div class="mark-part-bar"><div class="mark-part-fill" style="width:${Math.min(100,a.pct)}%"></div></div>
+        <div class="mark-part-val">${Math.round(a.pct)}%</div>
+      </div>`).join('')}</div>
+    </div>`:''}
+    <div class="sp-sess-title">All results</div>
+    ${marks.map(m=>`<div class="sp-list-item">
+      <div class="sp-list-head">
+        <div style="flex:1;min-width:0">
+          <div class="sp-list-title">${escHtml(m.test)}</div>
+          <div class="sp-list-meta">${fmtDate(m.date)}${m.subject?' · '+escHtml(m.subject):''}</div>
+        </div>
+        <div class="mark-score">${Math.round(markTotal(m)*10)/10}<span style="font-size:10px;color:var(--text-ter)">/100</span></div>
+        <button class="sp-icon-btn" onclick="openMarkModal('${m.id}')"><span class="material-symbols-outlined">edit</span></button>
+      </div>
+      ${(m.parts||[]).length?partBars(m.parts):''}
+      ${m.notes?`<div class="sp-list-body">${escHtml(m.notes)}</div>`:''}
+    </div>`).join('')}`;
+}
+function drawMarksChart(st){
+  const canvas=document.getElementById('sp-marks-chart');
+  if(!canvas||typeof Chart==='undefined')return;
+  const marks=[...st.marks].sort((a,b)=>byDateDesc(b,a));
+  const subjects=[...new Set(marks.map(m=>m.subject||''))];
+  const labels=marks.map(m=>fmtDate(m.date).slice(0,-5));
+  const datasets=subjects.map(subj=>{
+    const c=subjectColor(subj).c;
+    return{
+      label:subj||'Marks',
+      data:marks.map(m=>(m.subject||'')===subj?markTotal(m):null),
+      borderColor:c,backgroundColor:c,pointRadius:4,tension:0.25,spanGaps:true,
+    };
+  });
+  marksChart=new Chart(canvas,{
+    type:'line',
+    data:{labels,datasets},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:subjects.length>1,labels:{color:'#849495',font:{size:10,family:'JetBrains Mono'},boxWidth:8}},
+        tooltip:{callbacks:{title:items=>marks[items[0].dataIndex].test,label:ctx=>`${ctx.dataset.label}: ${ctx.raw}/100`}}},
+      scales:{
+        x:{grid:{display:false},ticks:{color:'#849495',font:{size:8,family:'JetBrains Mono'}}},
+        y:{min:0,max:100,grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'#849495',font:{size:8,family:'JetBrains Mono'},stepSize:25}}
+      }
+    }
+  });
+}
+function renderStudentPayments(studentSessions){
   const total=sum(studentSessions);
   const paid=sum(studentSessions.filter(s=>s.paid!==false));
   const unpaid=sum(studentSessions.filter(s=>s.paid===false));
-  const sc=subjectColor(studentSessions[0]?.subject||'');
-  document.getElementById('sp-avatar').textContent=initials(name);
-  document.getElementById('sp-avatar').style.background=sc.bg;
-  document.getElementById('sp-avatar').style.color=sc.c;
-  document.getElementById('sp-name-text').textContent=name;
-  document.getElementById('sp-stats').innerHTML=`
-    <div class="sp-stat"><div class="sp-stat-val">${fmt(total)}</div><div class="sp-stat-lbl">Total Earned</div></div>
-    <div class="sp-stat"><div class="sp-stat-val">${studentSessions.length}</div><div class="sp-stat-lbl">Sessions</div></div>
-    <div class="sp-stat"><div class="sp-stat-val" style="color:var(--silver)">${fmt(paid)}</div><div class="sp-stat-lbl">Paid</div></div>
-    <div class="sp-stat"><div class="sp-stat-val" style="color:var(--steel)">${fmt(unpaid)}</div><div class="sp-stat-lbl">Outstanding</div></div>`;
-  const listEl=document.getElementById('sp-session-list');
-  if(!studentSessions.length){
-    listEl.innerHTML='<div class="empty"><div class="empty-text">No sessions</div></div>';
-  } else {
-    listEl.innerHTML=studentSessions.slice(0,30).map(s=>{
+  return `
+    <div class="sp-stats" style="margin:-14px -14px 16px">
+      <div class="sp-stat"><div class="sp-stat-val">${fmt(total)}</div><div class="sp-stat-lbl">Total Earned</div></div>
+      <div class="sp-stat"><div class="sp-stat-val">${studentSessions.length}</div><div class="sp-stat-lbl">Sessions</div></div>
+      <div class="sp-stat"><div class="sp-stat-val" style="color:var(--silver)">${fmt(paid)}</div><div class="sp-stat-lbl">Paid</div></div>
+      <div class="sp-stat"><div class="sp-stat-val" style="color:var(--steel)">${fmt(unpaid)}</div><div class="sp-stat-lbl">Outstanding</div></div>
+    </div>
+    <div class="sp-sess-title">Session History</div>
+    ${studentSessions.length?studentSessions.slice(0,50).map(s=>{
       const isPaid=s.paid!==false;
       return `<div class="session-item" style="margin-bottom:5px">
         <div class="session-info">
@@ -2398,11 +2862,367 @@ function openStudentPanel(name){
         <span class="badge ${isPaid?'badge-paid':'badge-unpaid'}" onclick="togglePaid('${s.id}',true)" title="${isPaid?'Mark unpaid':'Mark paid'}">${isPaid?'PAID':'UNPAID'}</span>
         <div class="session-amount" style="color:${isPaid?'var(--text)':'var(--steel)'}">${fmt(s.amount)}</div>
       </div>`;
-    }).join('');
-  }
-  panel.classList.add('open');
+    }).join(''):'<div class="empty"><div class="empty-text">No sessions</div></div>'}`;
 }
-function closeStudentPanel(){document.getElementById('student-panel').classList.remove('open');}
+
+// ── PROFILE MODAL (add / edit / rename) ──────────────────
+let editingStudentName=null;
+let stmReminders=true;
+function setStmReminders(val){
+  stmReminders=val;
+  document.getElementById('stm-rem-on').className=val?'active-paid':'';
+  document.getElementById('stm-rem-off').className=!val?'active-unpaid':'';
+}
+function openStudentModal(name){
+  editingStudentName=name;
+  const st=name?(students[name]||blankStudent()):blankStudent();
+  document.getElementById('stm-title').textContent=name?'Edit profile':'Add student';
+  document.getElementById('stm-name').value=name||'';
+  document.getElementById('stm-grade').value=st.grade||'';
+  document.getElementById('stm-school').value=st.school||'';
+  document.getElementById('stm-phone').value=st.phone||'';
+  document.getElementById('stm-parent').value=st.parentName||'';
+  document.getElementById('stm-parent-phone').value=st.parentPhone||'';
+  document.getElementById('stm-notes').value=st.notes||'';
+  setStmReminders(st.reminders!==false);
+  document.getElementById('stm-delete-btn').style.display=(name&&students[name])?'inline-flex':'none';
+  document.getElementById('student-modal').classList.add('open');
+}
+function closeStudentModal(){document.getElementById('student-modal').classList.remove('open');editingStudentName=null;}
+function renameStudent(oldName,newName){
+  sessions.forEach(s=>{if(s.name===oldName)s.name=newName;});
+  patterns.forEach(p=>{
+    if(p.name===oldName)p.name=newName;
+    if(Array.isArray(p.members))p.members=p.members.map(m=>m===oldName?newName:m);
+  });
+  if(students[oldName]){students[newName]=students[oldName];delete students[oldName];}
+  if(currentStudent===oldName)currentStudent=newName;
+}
+function saveStudentModal(){
+  const name=document.getElementById('stm-name').value.trim();
+  if(!name){toast('Enter student name.');return;}
+  const phoneRaw=document.getElementById('stm-phone').value.trim();
+  if(phoneRaw&&!normalizePhone(phoneRaw)){toast('Check the WhatsApp number.');return;}
+  const oldName=editingStudentName;
+  const nameTaken=allStudentNames().includes(name);
+  const existing=students[name];
+  if(!oldName&&existing&&(existing.phone||existing.lessons?.length||existing.marks?.length)){
+    toast('A student with that name already exists.');return;
+  }
+  if(oldName&&oldName!==name){
+    if(nameTaken){toast('A student with that name already exists.');return;}
+    renameStudent(oldName,name);
+  }
+  const st=getStudent(name);
+  st.grade=document.getElementById('stm-grade').value.trim();
+  st.school=document.getElementById('stm-school').value.trim();
+  st.phone=phoneRaw;
+  st.parentName=document.getElementById('stm-parent').value.trim();
+  st.parentPhone=document.getElementById('stm-parent-phone').value.trim();
+  st.notes=document.getElementById('stm-notes').value.trim();
+  st.reminders=stmReminders;
+  save();closeStudentModal();
+  updateStudentDatalist();
+  if(document.getElementById('section-students').classList.contains('active'))renderStudents();
+  renderReminders();
+  if(!oldName||document.getElementById('student-panel').classList.contains('open'))openStudentPanel(name);
+  showToast('stu_'+Date.now(),'info','Profile saved',name,'check_circle');
+}
+function deleteStudentProfile(){
+  const name=editingStudentName;if(!name)return;
+  if(!confirm(`Delete ${name}'s profile, lessons and marks?\nSessions and payments are kept.`))return;
+  delete students[name];
+  save();closeStudentModal();
+  if(currentStudent===name)renderStudentPanel();
+  if(document.getElementById('section-students').classList.contains('active'))renderStudents();
+  toast('Profile deleted');
+}
+
+// ── LESSONS ──────────────────────────────────────────────
+let editingLessonId=null;
+function openLessonModal(id){
+  const st=getStudent(currentStudent);
+  editingLessonId=id;
+  const l=id?st.lessons.find(x=>x.id===id):null;
+  const lastSubj=sessions.find(s=>s.name===currentStudent)?.subject||settings.subjects[0];
+  document.getElementById('lm-title').textContent=l?'Edit lesson':'Add lesson';
+  document.getElementById('lm-date').value=l?.date||today();
+  document.getElementById('lm-subject').value=l?.subject||lastSubj;
+  document.getElementById('lm-topic').value=l?.topic||'';
+  document.getElementById('lm-notes').value=l?.notes||'';
+  document.getElementById('lm-delete-btn').style.display=l?'inline-flex':'none';
+  document.getElementById('lesson-modal').classList.add('open');
+}
+function closeLessonModal(){document.getElementById('lesson-modal').classList.remove('open');editingLessonId=null;}
+function saveLesson(){
+  const date=document.getElementById('lm-date').value;
+  const subject=document.getElementById('lm-subject').value;
+  const topic=document.getElementById('lm-topic').value.trim();
+  const notes=document.getElementById('lm-notes').value.trim();
+  if(!date){toast('Select a date.');return;}
+  if(!topic){toast('Enter the lesson topic.');return;}
+  const st=getStudent(currentStudent);
+  const l=editingLessonId&&st.lessons.find(x=>x.id===editingLessonId);
+  if(l)Object.assign(l,{date,subject,topic,notes});
+  else st.lessons.unshift({id:uid(),date,subject,topic,notes});
+  save();closeLessonModal();renderStudentPanel();toast('Lesson saved');
+}
+function deleteLesson(){
+  if(!editingLessonId||!confirm('Delete this lesson?'))return;
+  const st=getStudent(currentStudent);
+  st.lessons=st.lessons.filter(l=>l.id!==editingLessonId);
+  save();closeLessonModal();renderStudentPanel();toast('Lesson deleted');
+}
+
+// ── MARKS (out of 100, optional section breakdown) ───────
+let editingMarkId=null;
+function addMarkPartRow(label='',score='',max=''){
+  const wrap=document.getElementById('mm-parts');
+  const row=document.createElement('div');
+  row.className='part-row';
+  row.innerHTML=`
+    <div class="form-group"><label class="form-label">Section</label><input class="form-input mp-label" placeholder="e.g. MCQ"/></div>
+    <div class="form-group"><label class="form-label">Score</label><input class="form-input mp-score" type="number" inputmode="decimal" min="0"/></div>
+    <div class="form-group"><label class="form-label">Out of</label><input class="form-input mp-max" type="number" inputmode="decimal" min="1"/></div>
+    <button class="sp-icon-btn" title="Remove" onclick="this.parentElement.remove();updateMarkPartsTotal()"><span class="material-symbols-outlined">close</span></button>`;
+  row.querySelector('.mp-label').value=label;
+  row.querySelector('.mp-score').value=score;
+  row.querySelector('.mp-max').value=max;
+  row.querySelectorAll('input').forEach(i=>i.addEventListener('input',updateMarkPartsTotal));
+  wrap.appendChild(row);
+  updateMarkPartsTotal();
+}
+function readMarkParts(){
+  return [...document.querySelectorAll('#mm-parts .part-row')].map(r=>({
+    label:r.querySelector('.mp-label').value.trim(),
+    score:r.querySelector('.mp-score').value,
+    max:r.querySelector('.mp-max').value,
+  })).filter(p=>p.label||p.score!==''||p.max!=='');
+}
+function updateMarkPartsTotal(){
+  const parts=readMarkParts();
+  const el=document.getElementById('mm-parts-total');
+  const totalGroup=document.getElementById('mm-total-group');
+  if(!parts.length){el.textContent='';el.classList.remove('bad');totalGroup.style.display='';return;}
+  totalGroup.style.display='none';
+  const score=parts.reduce((a,p)=>a+(parseFloat(p.score)||0),0);
+  const max=parts.reduce((a,p)=>a+(parseFloat(p.max)||0),0);
+  el.textContent=`Total: ${Math.round(score*10)/10} / ${Math.round(max*10)/10}`+(max!==100?'  ·  sections must add up to 100':'');
+  el.classList.toggle('bad',max!==100);
+}
+function openMarkModal(id){
+  const st=getStudent(currentStudent);
+  editingMarkId=id;
+  const m=id?st.marks.find(x=>x.id===id):null;
+  const lastSubj=sessions.find(s=>s.name===currentStudent)?.subject||settings.subjects[0];
+  document.getElementById('mm-title').textContent=m?'Edit marks':'Add marks';
+  document.getElementById('mm-test').value=m?.test||'';
+  document.getElementById('mm-date').value=m?.date||today();
+  document.getElementById('mm-subject').value=m?.subject||lastSubj;
+  document.getElementById('mm-total').value=m&&!(m.parts||[]).length?m.total:'';
+  document.getElementById('mm-notes').value=m?.notes||'';
+  document.getElementById('mm-parts').innerHTML='';
+  if(m)(m.parts||[]).forEach(p=>addMarkPartRow(p.label,p.score,p.max));
+  else{
+    // New result: reuse the section layout of this student's last broken-down paper
+    const prev=[...st.marks].sort(byDateDesc).find(x=>(x.parts||[]).length);
+    if(prev)prev.parts.forEach(p=>addMarkPartRow(p.label,'',p.max));
+  }
+  updateMarkPartsTotal();
+  document.getElementById('mm-delete-btn').style.display=m?'inline-flex':'none';
+  document.getElementById('mark-modal').classList.add('open');
+}
+function closeMarkModal(){document.getElementById('mark-modal').classList.remove('open');editingMarkId=null;}
+function saveMark(){
+  const test=document.getElementById('mm-test').value.trim();
+  const date=document.getElementById('mm-date').value;
+  const subject=document.getElementById('mm-subject').value;
+  const notes=document.getElementById('mm-notes').value.trim();
+  if(!test){toast('Enter the test name.');return;}
+  if(!date){toast('Select a date.');return;}
+  const raw=readMarkParts();
+  let parts=[],total;
+  if(raw.length){
+    for(const p of raw){
+      const score=parseFloat(p.score),max=parseFloat(p.max);
+      if(!p.label){toast('Name every section.');return;}
+      if(isNaN(max)||max<=0){toast(`Enter "out of" for ${p.label}.`);return;}
+      if(isNaN(score)||score<0||score>max){toast(`${p.label}: score must be 0–${max}.`);return;}
+      parts.push({label:p.label,score,max});
+    }
+    const maxSum=parts.reduce((a,p)=>a+p.max,0);
+    if(Math.abs(maxSum-100)>0.001){toast(`Sections add up to ${maxSum}, not 100.`);return;}
+    total=parts.reduce((a,p)=>a+p.score,0);
+  } else {
+    total=parseFloat(document.getElementById('mm-total').value);
+    if(isNaN(total)||total<0||total>100){toast('Enter a mark between 0 and 100.');return;}
+  }
+  total=Math.round(total*10)/10;
+  const st=getStudent(currentStudent);
+  const m=editingMarkId&&st.marks.find(x=>x.id===editingMarkId);
+  if(m)Object.assign(m,{test,date,subject,parts,total,notes});
+  else st.marks.push({id:uid(),test,date,subject,parts,total,notes});
+  save();closeMarkModal();renderStudentPanel();
+  showToast('mark_'+Date.now(),'info','Marks saved',`${currentStudent} · ${total}/100`,'grading');
+}
+function deleteMark(){
+  if(!editingMarkId||!confirm('Delete this result?'))return;
+  const st=getStudent(currentStudent);
+  st.marks=st.marks.filter(m=>m.id!==editingMarkId);
+  save();closeMarkModal();renderStudentPanel();toast('Result deleted');
+}
+
+// ── STUDENTS SECTION ─────────────────────────────────────
+function renderStudents(){
+  const el=document.getElementById('students-list');if(!el)return;
+  const q=(document.getElementById('students-search').value||'').trim().toLowerCase();
+  const names=allStudentNames().filter(n=>!q||n.toLowerCase().includes(q));
+  if(!names.length){
+    el.innerHTML=`<div class="empty"><span class="material-symbols-outlined">school</span><div class="empty-text">${q?'No matching students':'No students yet'}</div></div>`;
+    return;
+  }
+  el.innerHTML=names.map(n=>{
+    const st=students[n];
+    const count=sessions.filter(s=>s.name===n).length;
+    const avg=st?avgMark(st.marks):null;
+    const sc=subjectColor(sessions.find(s=>s.name===n)?.subject||'');
+    const meta=[st?.grade,pluralSess(count),avg!==null?'avg '+Math.round(avg)+'%':''].filter(Boolean).join(' · ');
+    return `<div class="student-row" ${nameClick(n)}>
+      <div class="session-avatar" style="background:${sc.bg};color:${sc.c}">${initials(n)}</div>
+      <div class="student-row-info">
+        <div class="student-row-name">${escHtml(n)}</div>
+        <div class="student-row-meta">${meta}</div>
+      </div>
+      ${normalizePhone(st?.phone)?'':`<span class="material-symbols-outlined" title="No WhatsApp number" style="font-size:16px;color:var(--text-ter)">phone_disabled</span>`}
+      <span class="material-symbols-outlined" style="font-size:18px;color:var(--text-ter)">chevron_right</span>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════════════
+// JS SECTION 14b — WHATSAPP CLASS REMINDERS (one tap to send)
+// ══════════════════════════════════════════════════════════
+// "077 123 4567" / "+94 77 123 4567" / "0094..." → "94771234567" (wa.me format)
+function normalizePhone(raw){
+  if(!raw)return '';
+  let d=String(raw).replace(/\D/g,'');
+  const cc=(settings.countryCode||'94').replace(/\D/g,'');
+  if(d.startsWith('00'))d=d.slice(2);
+  else if(d.startsWith('0'))d=cc+d.slice(1);
+  else if(!String(raw).trim().startsWith('+')&&d.length<=9)d=cc+d;
+  return d.length>=10&&d.length<=15?d:'';
+}
+function loadRemindersSent(){
+  try{return JSON.parse(localStorage.getItem('tuition_reminders_sent')||'{}')||{};}catch(e){return {};}
+}
+function markReminderSent(key){
+  const sent=loadRemindersSent();
+  const cutoff=Date.now()-3*86400000;
+  Object.keys(sent).forEach(k=>{if(sent[k]<cutoff)delete sent[k];});
+  sent[key]=Date.now();
+  try{localStorage.setItem('tuition_reminders_sent',JSON.stringify(sent));}catch(e){}
+  setTimeout(renderReminders,400);
+}
+// Classes today that start within the reminder window (default 2 hours)
+function getDueReminders(now=new Date()){
+  const ds=dateStr(now),dow=now.getDay();
+  const lead=settings.reminderLeadMins||120;
+  const out=[];
+  patterns.forEach(p=>{
+    if(!p.active||!p.time||!p.days.includes(dow))return;
+    if(ds<p.startDate||(p.endDate&&ds>p.endDate))return;
+    const[h,m]=p.time.split(':').map(Number);
+    const start=new Date(now);start.setHours(h,m,0,0);
+    const minsUntil=(start-now)/60000;
+    if(minsUntil<=0||minsUntil>lead)return;
+    patternStudents(p).forEach(name=>{
+      const st=students[name];
+      if(st&&st.reminders===false)return;
+      out.push({key:`${p.id}|${ds}|${name}`,name,pattern:p,minsUntil,phone:normalizePhone(st?.phone)});
+    });
+  });
+  return out.sort((a,b)=>a.minsUntil-b.minsUntil);
+}
+function buildReminderMessage(r){
+  const vals={
+    student:r.name,subject:r.pattern.subject,time:fmtTime12(r.pattern.time),
+    day:DAYS_FULL[new Date().getDay()],teacher:settings.teacherName||'',
+  };
+  return (settings.reminderTemplate||DEFAULT_REMINDER_TEMPLATE).replace(/\{(\w+)\}/g,(m,k)=>k in vals?vals[k]:m);
+}
+function waLink(phone,msg){return `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;}
+function fmtMinsUntil(mins){
+  const h=Math.floor(mins/60),m=Math.round(mins%60);
+  return 'in '+(h?h+'h ':'')+m+'m';
+}
+const _notifiedReminders=new Set();
+function renderReminders(){
+  const card=document.getElementById('reminders-card');if(!card)return;
+  const due=getDueReminders();
+  const sent=loadRemindersSent();
+  if(!due.length){card.style.display='none';return;}
+  card.style.display='';
+  const pending=due.filter(r=>!sent[r.key]);
+  document.getElementById('reminders-count').textContent=pending.length?`${pending.length} TO SEND`:'ALL SENT';
+  document.getElementById('reminders-list').innerHTML=due.map(r=>{
+    const isSent=!!sent[r.key];
+    let action;
+    if(!r.phone)action=`<button class="btn btn-ghost btn-sm" onclick="openStudentModal(${jsArg(r.name)})"><span class="material-symbols-outlined">add_call</span> Add number</button>`;
+    else if(isSent)action=`<a class="rem-sent" href="${waLink(r.phone,buildReminderMessage(r))}" target="_blank" rel="noopener" title="Send again"><span class="material-symbols-outlined">done_all</span>SENT</a>`;
+    else action=`<a class="btn btn-wa btn-sm" href="${waLink(r.phone,buildReminderMessage(r))}" target="_blank" rel="noopener" onclick="markReminderSent(${jsArg(r.key)})"><span class="material-symbols-outlined">send</span> Send</a>`;
+    return `<div class="rem-item">
+      <div class="rem-info">
+        <div class="rem-name clickable-name" ${nameClick(r.name)}>${escHtml(r.name)}</div>
+        <div class="rem-meta">${escHtml(r.pattern.subject)} · ${fmtTime12(r.pattern.time)} · ${fmtMinsUntil(r.minsUntil)}</div>
+      </div>
+      ${action}
+    </div>`;
+  }).join('');
+  // Nudge once per reminder while the app is open
+  pending.forEach(r=>{
+    if(_notifiedReminders.has(r.key))return;
+    _notifiedReminders.add(r.key);
+    showToast('rem_'+r.key,'info','Class reminder due',`${r.name} · ${fmtTime12(r.pattern.time)} — tap Send on Home`,'notifications_active');
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+// JS SECTION 14c — FULL BACKUP / RESTORE (JSON, includes profiles)
+// ══════════════════════════════════════════════════════════
+function exportBackup(){
+  const payload={app:'tuition-tracker',version:3,exportedAt:new Date().toISOString(),settings,sessions,patterns,calNotes,students};
+  const blob=new Blob([JSON.stringify(payload,null,1)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`tuition-backup-${today()}.json`;
+  a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  localStorage.setItem('tuition_last_export',Date.now());
+  const banner=document.getElementById('backup-banner');if(banner)banner.style.display='none';
+  showToast('backup','info','Backup saved','Includes sessions, schedules, profiles, lessons and marks.','backup');
+}
+function triggerRestoreBackup(){document.getElementById('backup-restore-input').click();}
+function restoreBackup(event){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    event.target.value='';
+    let d;
+    try{d=JSON.parse(e.target.result);}catch(err){showToast('restore_err','info','Restore failed','Not a valid backup file.','error');return;}
+    if(!d||!Array.isArray(d.sessions)){showToast('restore_err','info','Restore failed','Not a Tuition Tracker backup.','error');return;}
+    const when=d.exportedAt?new Date(d.exportedAt).toLocaleString():'unknown date';
+    if(!confirm(`Replace ALL current data with this backup?\n\nBackup from: ${when}\nSessions: ${d.sessions.length}\nStudents: ${Object.keys(d.students||{}).length}`))return;
+    sessions=d.sessions;
+    patterns=Array.isArray(d.patterns)?d.patterns:[];
+    calNotes=(d.calNotes&&typeof d.calNotes==='object')?d.calNotes:{};
+    students=(d.students&&typeof d.students==='object')?d.students:{};
+    if(d.settings&&typeof d.settings==='object'){settings={...settings,...d.settings};_persistSettings();}
+    save();
+    rebuildSubjectDropdowns();updateTopbarName();
+    showSection('dashboard');
+    showToast('restore','info','Backup restored',`${sessions.length} sessions · ${Object.keys(students).length} profiles`,'settings_backup_restore');
+  };
+  reader.readAsText(file);
+}
 
 // ══════════════════════════════════════════════════════════
 // JS SECTION 15 — SPARKLINES (verbatim from v79)
@@ -2533,8 +3353,8 @@ function renderDashboard(){
             <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-ter)">${MONTHS[u.month]}</div>
           </div>
           <div style="flex:1;min-width:0">
-            <div style="font-size:13px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(u.pattern.name)}</div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-ter);margin-top:2px">${u.pattern.subject} · ${u.pattern.type}</div>
+            <div class="clickable-name" ${patternNameClick(u.pattern)} style="font-size:13px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(u.pattern.name)}</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-ter);margin-top:2px">${u.pattern.subject} · ${u.pattern.type}${u.pattern.time?' · '+fmtTime12(u.pattern.time):''}</div>
           </div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">${fmt(u.pattern.fee)}</div>
         </div>`).join('');
@@ -2542,6 +3362,7 @@ function renderDashboard(){
   }
   renderTodayList('today-list');
   updatePatternBadge();
+  renderReminders();
   // Topbar date
   const d=document.getElementById('topbar-date');
   if(d)d.textContent=now.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}).toUpperCase();
@@ -2665,11 +3486,12 @@ function renderPatternsList(){
         <span class="material-symbols-outlined" style="color:${sc.c};font-size:16px">menu_book</span>
       </div>
       <div class="pattern-body">
-        <div class="pattern-title">${escHtml(p.name)}</div>
+        <div class="pattern-title clickable-name" ${patternNameClick(p)}>${escHtml(p.name)}</div>
+        ${p.type==='Group'&&(p.members||[]).length?`<div class="pattern-meta" style="margin-top:2px">${p.members.map(m=>`<span class="clickable-name" style="text-decoration:underline" ${nameClick(m)}>${escHtml(m)}</span>`).join(' ')}</div>`:''}
         <div class="pattern-meta">
           <span>${p.subject} · ${p.type}</span>
           <span><span class="material-symbols-outlined">event_repeat</span>Every ${p.days.map(d=>DAYS_FULL[d].slice(0,3)).join(', ')}</span>
-          ${p.time?`<span><span class="material-symbols-outlined">schedule</span>${p.time}</span>`:''}
+          ${p.time?`<span><span class="material-symbols-outlined">schedule</span>${fmtTime12(p.time)}</span>`:`<span style="color:var(--steel)"><span class="material-symbols-outlined">schedule</span>No time · no reminder</span>`}
           <span><span class="material-symbols-outlined">payments</span>${fmt(p.fee)}/session</span>
         </div>
       </div>
@@ -2743,6 +3565,7 @@ function openPatternModal(id){
     document.getElementById('pm-time').value=p.time||'';
     document.getElementById('pm-start').value=p.startDate;
     document.getElementById('pm-end').value=p.endDate||'';
+    document.getElementById('pm-members').value=(p.members||[]).join(', ');
     buildDowPicker(p.days);del.style.display='inline-flex';
   } else {
     document.getElementById('modal-title').textContent='Add recurring schedule';
@@ -2752,9 +3575,14 @@ function openPatternModal(id){
     document.getElementById('pm-time').value='';
     document.getElementById('pm-start').value=today();
     document.getElementById('pm-end').value='';
+    document.getElementById('pm-members').value='';
     buildDowPicker([]);del.style.display='none';
   }
+  updatePmMembersVisibility();
   document.getElementById('pattern-modal').classList.add('open');
+}
+function updatePmMembersVisibility(){
+  document.getElementById('pm-members-group').style.display=document.getElementById('pm-type').value==='Group'?'':'none';
 }
 function closePatternModal(){document.getElementById('pattern-modal').classList.remove('open');editingPatternId=null;}
 function savePattern(){
@@ -2769,14 +3597,17 @@ function savePattern(){
   if(!selectedDow.length){toast('Select at least one day.');return;}
   if(isNaN(fee)||fee<=0){toast('Enter valid fee.');return;}
   if(!start){toast('Enter start date.');return;}
+  const members=type==='Group'
+    ?[...new Set(document.getElementById('pm-members').value.split(',').map(x=>x.trim()).filter(Boolean))]
+    :[];
   if(editingPatternId){
     const p=patterns.find(x=>x.id===editingPatternId);
-    if(p){p.name=name;p.subject=subject;p.type=type;p.fee=fee;p.time=time;p.days=[...selectedDow];p.startDate=start;p.endDate=end;}
+    if(p){p.name=name;p.subject=subject;p.type=type;p.fee=fee;p.time=time;p.days=[...selectedDow];p.startDate=start;p.endDate=end;p.members=members;}
   } else {
-    patterns.push({id:uid(),name,subject,type,fee,time,days:[...selectedDow],startDate:start,endDate:end,active:true});
+    patterns.push({id:uid(),name,subject,type,fee,time,days:[...selectedDow],startDate:start,endDate:end,active:true,members});
   }
-  save();closePatternModal();renderPatterns();
-  showToast('pat','info','Schedule saved','','check_circle');
+  save();closePatternModal();renderPatterns();updateStudentDatalist();renderReminders();
+  showToast('pat','info','Schedule saved',time?'':'No class time set, so no WhatsApp reminder will be sent.','check_circle');
 }
 function deletePatternFromModal(){
   if(!editingPatternId||!confirm('Delete this schedule?'))return;
@@ -2866,8 +3697,8 @@ function renderDayDetail(ds){
       const logged=daySess.some(s=>s.name===p.name&&s.subject===p.subject);
       html+=`<div style="display:flex;align-items:center;gap:10px;padding:8px;background:transparent;border:1px solid var(--border);border-radius:var(--r);margin-bottom:6px">
         <div style="flex:1">
-          <div style="font-size:12px;font-weight:600;color:var(--text)">${escHtml(p.name)}</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-ter)">${p.subject} · ${p.type}${p.time?' · '+p.time:''}</div>
+          <div class="clickable-name" ${patternNameClick(p)} style="font-size:12px;font-weight:600;color:var(--text)">${escHtml(p.name)}</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-ter)">${p.subject} · ${p.type}${p.time?' · '+fmtTime12(p.time):''}</div>
         </div>
         <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--text)">${fmt(p.fee)}</span>
         ${logged
@@ -2997,7 +3828,7 @@ function renderAnalytics(){
     const maxVal=ranked[0]?.[1]||1;
     rankEl.innerHTML=ranked.length?ranked.map(([name,val])=>`
       <div class="ranking-bar-row">
-        <div class="ranking-bar-name" onclick="openStudentPanel('${escHtml(name)}')">${escHtml(name)}</div>
+        <div class="ranking-bar-name" ${nameClick(name)}>${escHtml(name)}</div>
         <div class="ranking-bar-bg"><div class="ranking-bar-fill" style="width:${(val/maxVal*100)}%"></div></div>
         <div class="ranking-bar-val">${fmt(val)}</div>
       </div>`).join('')
@@ -3065,7 +3896,7 @@ function renderHistory(){
     return `<div class="session-item" style="animation-delay:${Math.min(i,20)*25}ms">
       <div class="session-avatar" style="background:${sc.bg};color:${sc.c}">${initials(s.name)}</div>
       <div class="session-info">
-        <div class="session-name" onclick="openStudentPanel('${escHtml(s.name)}')">${escHtml(s.name)}</div>
+        <div class="session-name" ${nameClick(s.name)}>${escHtml(s.name)}</div>
         <div class="session-meta">${s.date} · <span class="badge" style="background:${sc.bg};color:${sc.c};padding:1px 5px">${s.subject}</span></div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
@@ -3121,7 +3952,7 @@ function renderReport(){
     studEl.innerHTML=rows.length?rows.map(([name,info])=>`
       <div class="report-student-row">
         <div>
-          <div style="font-size:13px;font-weight:600;color:var(--text);cursor:pointer" onclick="openStudentPanel('${escHtml(name)}')">${escHtml(name)}</div>
+          <div style="font-size:13px;font-weight:600;color:var(--text);cursor:pointer" ${nameClick(name)}>${escHtml(name)}</div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-ter)">${info.count} sessions</div>
         </div>
         <div style="text-align:right">
@@ -3335,6 +4166,9 @@ window.addEventListener('load',()=>{
   setPaid(false);
   renderDashboard();
   checkBackupReminder();
+  // Re-check which class reminders are due every minute and when the app comes back to the foreground
+  setInterval(renderReminders,60000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)renderReminders();});
   dismissedSuggestions=JSON.parse(localStorage.getItem('tuition_dismissed_suggestions')||'[]');
   // Topbar date
   const d=new Date();
