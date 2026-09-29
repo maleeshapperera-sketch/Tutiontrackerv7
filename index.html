@@ -1598,6 +1598,7 @@ tbody tr:last-child td{border-bottom:none}
     <button class="more-item" onclick="closeMoreSheet();openSettings()">
       <span class="material-symbols-outlined">settings</span> Settings
     </button>
+    <div class="sp-sub" style="text-align:center;padding:10px 0 0" id="app-version"></div>
   </div>
 </div>
 
@@ -1650,6 +1651,15 @@ tbody tr:last-child td{border-bottom:none}
         <button class="btn btn-ghost btn-sm" onclick="this.closest('.backup-banner').style.display='none'">✕</button>
       </div>
 
+      <!-- WhatsApp reminders (today's classes) -->
+      <div class="card" id="reminders-card" style="display:none;border-color:rgba(37,211,102,0.35)">
+        <div style="display:flex;align-items:center;margin-bottom:6px">
+          <div class="card-title" style="margin-bottom:0">Today's WhatsApp Reminders</div>
+          <span class="sp-sub" style="margin-left:auto;margin-top:0" id="reminders-count"></span>
+        </div>
+        <div id="reminders-list"></div>
+      </div>
+
       <!-- Metrics scroll strip -->
       <div class="metrics-scroll" id="metrics-row">
         <div class="metric-card stagger-card" style="animation-delay:0ms" onclick="filterByUnpaid(false)">
@@ -1691,15 +1701,6 @@ tbody tr:last-child td{border-bottom:none}
         <div class="card-title">Monthly Revenue</div>
         <div class="chart-legend" id="dash-chart-legend"></div>
         <div class="chart-container"><canvas id="dash-chart"></canvas></div>
-      </div>
-
-      <!-- WhatsApp reminders -->
-      <div class="card stagger-card" id="reminders-card" style="animation-delay:330ms;display:none">
-        <div style="display:flex;align-items:center;margin-bottom:6px">
-          <div class="card-title" style="margin-bottom:0">WhatsApp Reminders</div>
-          <span class="sp-sub" style="margin-left:auto;margin-top:0" id="reminders-count"></span>
-        </div>
-        <div id="reminders-list"></div>
       </div>
 
       <!-- Upcoming classes -->
@@ -2162,6 +2163,7 @@ let sessions  = [];
 let patterns  = [];
 let calNotes  = {};
 let students  = {};   // keyed by student name → profile, lessons, marks
+const APP_VERSION='v7';
 const DEFAULT_REMINDER_TEMPLATE='Hi {student}, this is a reminder that your {subject} class is today at {time}. See you there! – {teacher}';
 let settings  = { teacherName:'', subjects:['Physics','Maths'], monthlyGoal:0, currency:'LKR',
   reminderLeadMins:120, countryCode:'94', reminderTemplate:DEFAULT_REMINDER_TEMPLATE };
@@ -3123,26 +3125,37 @@ function markReminderSent(key){
   try{localStorage.setItem('tuition_reminders_sent',JSON.stringify(sent));}catch(e){}
   setTimeout(renderReminders,400);
 }
-// Classes today that start within the reminder window (default 2 hours)
-function getDueReminders(now=new Date()){
+// Every class still to come today, one row per student, with its reminder status:
+// 'due' (inside the reminder window), 'later' (window not open yet), 'notime', 'nophone', 'off'
+function getTodayReminders(now=new Date()){
   const ds=dateStr(now),dow=now.getDay();
   const lead=settings.reminderLeadMins||120;
   const out=[];
   patterns.forEach(p=>{
-    if(!p.active||!p.time||!p.days.includes(dow))return;
+    if(!p.active||!p.days.includes(dow))return;
     if(ds<p.startDate||(p.endDate&&ds>p.endDate))return;
-    const[h,m]=p.time.split(':').map(Number);
-    const start=new Date(now);start.setHours(h,m,0,0);
-    const minsUntil=(start-now)/60000;
-    if(minsUntil<=0||minsUntil>lead)return;
+    let minsUntil=null,remindAt=null;
+    if(p.time){
+      const[h,m]=p.time.split(':').map(Number);
+      const start=new Date(now);start.setHours(h,m,0,0);
+      minsUntil=(start-now)/60000;
+      if(minsUntil<=0)return; // class already started
+      remindAt=new Date(start.getTime()-lead*60000);
+    }
     patternStudents(p).forEach(name=>{
       const st=students[name];
-      if(st&&st.reminders===false)return;
-      out.push({key:`${p.id}|${ds}|${name}`,name,pattern:p,minsUntil,phone:normalizePhone(st?.phone)});
+      const phone=normalizePhone(st?.phone);
+      let status;
+      if(!p.time)status='notime';
+      else if(st&&st.reminders===false)status='off';
+      else if(!phone)status='nophone';
+      else status=minsUntil<=lead?'due':'later';
+      out.push({key:`${p.id}|${ds}|${name}`,name,pattern:p,minsUntil,remindAt,phone,status});
     });
   });
-  return out.sort((a,b)=>a.minsUntil-b.minsUntil);
+  return out.sort((a,b)=>(a.minsUntil??1e9)-(b.minsUntil??1e9));
 }
+function getDueReminders(now=new Date()){return getTodayReminders(now).filter(r=>r.status==='due');}
 function buildReminderMessage(r){
   const vals={
     student:r.name,subject:r.pattern.subject,time:fmtTime12(r.pattern.time),
@@ -3158,22 +3171,40 @@ function fmtMinsUntil(mins){
 const _notifiedReminders=new Set();
 function renderReminders(){
   const card=document.getElementById('reminders-card');if(!card)return;
-  const due=getDueReminders();
+  const rows=getTodayReminders();
   const sent=loadRemindersSent();
-  if(!due.length){card.style.display='none';return;}
+  if(!rows.length){card.style.display='none';return;}
   card.style.display='';
-  const pending=due.filter(r=>!sent[r.key]);
-  document.getElementById('reminders-count').textContent=pending.length?`${pending.length} TO SEND`:'ALL SENT';
-  document.getElementById('reminders-list').innerHTML=due.map(r=>{
+  const pending=rows.filter(r=>r.status==='due'&&!sent[r.key]);
+  document.getElementById('reminders-count').textContent=pending.length?`${pending.length} TO SEND`:'';
+  const lead=settings.reminderLeadMins||120;
+  document.getElementById('reminders-list').innerHTML=rows.map(r=>{
     const isSent=!!sent[r.key];
-    let action;
-    if(!r.phone)action=`<button class="btn btn-ghost btn-sm" onclick="openStudentModal(${jsArg(r.name)})"><span class="material-symbols-outlined">add_call</span> Add number</button>`;
-    else if(isSent)action=`<a class="rem-sent" href="${waLink(r.phone,buildReminderMessage(r))}" target="_blank" rel="noopener" title="Send again"><span class="material-symbols-outlined">done_all</span>SENT</a>`;
-    else action=`<a class="btn btn-wa btn-sm" href="${waLink(r.phone,buildReminderMessage(r))}" target="_blank" rel="noopener" onclick="markReminderSent(${jsArg(r.key)})"><span class="material-symbols-outlined">send</span> Send</a>`;
+    const link=r.phone?waLink(r.phone,buildReminderMessage(r)):'';
+    const sendBtn=(label,cls)=>`<a class="btn ${cls} btn-sm" href="${link}" target="_blank" rel="noopener" onclick="markReminderSent(${jsArg(r.key)})"><span class="material-symbols-outlined">send</span> ${label}</a>`;
+    const meta=escHtml(r.pattern.subject)+(r.pattern.time?` · ${fmtTime12(r.pattern.time)} · ${fmtMinsUntil(r.minsUntil)}`:'');
+    let action,hint='';
+    if(r.status==='notime'){
+      action=`<button class="btn btn-ghost btn-sm" onclick="openPatternModal(${jsArg(r.pattern.id)})"><span class="material-symbols-outlined">schedule</span> Set time</button>`;
+      hint='No class time set, so no reminder.';
+    } else if(r.status==='off'){
+      action=`<span class="rem-meta">Reminders off</span>`;
+    } else if(r.status==='nophone'){
+      action=`<button class="btn btn-ghost btn-sm" onclick="openStudentModal(${jsArg(r.name)})"><span class="material-symbols-outlined">add_call</span> Add number</button>`;
+      hint='Add a WhatsApp number to get the Send button.';
+    } else if(isSent){
+      action=`<a class="rem-sent" href="${link}" target="_blank" rel="noopener" title="Send again"><span class="material-symbols-outlined">done_all</span>SENT</a>`;
+    } else if(r.status==='due'){
+      action=sendBtn('Send','btn-wa');
+    } else {
+      action=sendBtn('Send now','btn-ghost');
+      hint=`Send turns green at ${r.remindAt.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}.`;
+    }
     return `<div class="rem-item">
       <div class="rem-info">
         <div class="rem-name clickable-name" ${nameClick(r.name)}>${escHtml(r.name)}</div>
-        <div class="rem-meta">${escHtml(r.pattern.subject)} · ${fmtTime12(r.pattern.time)} · ${fmtMinsUntil(r.minsUntil)}</div>
+        <div class="rem-meta">${meta}</div>
+        ${hint?`<div class="rem-meta" style="color:var(--steel)">${hint}</div>`:''}
       </div>
       ${action}
     </div>`;
@@ -4164,6 +4195,7 @@ window.addEventListener('load',()=>{
   checkSetup();
   document.getElementById('f-date').value=today();
   setPaid(false);
+  document.getElementById('app-version').textContent='Tuition Tracker '+APP_VERSION;
   renderDashboard();
   checkBackupReminder();
   // Re-check which class reminders are due every minute and when the app comes back to the foreground
